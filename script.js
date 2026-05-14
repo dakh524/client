@@ -8,18 +8,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ---- Mobile Menu ----
     const hamburger = document.getElementById('hamburger');
-    const mainNav = document.getElementById('main-nav');
-    if (hamburger && mainNav) {
+    const navWrapper = document.querySelector('.main-nav-wrapper');
+    if (hamburger && navWrapper) {
         hamburger.addEventListener('click', () => {
-            mainNav.classList.toggle('open');
+            navWrapper.classList.toggle('open');
             const icon = hamburger.querySelector('i');
             icon.classList.toggle('fa-bars');
             icon.classList.toggle('fa-times');
         });
         // Close on nav link click
-        mainNav.querySelectorAll('a').forEach(link => {
+        navWrapper.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
-                mainNav.classList.remove('open');
+                navWrapper.classList.remove('open');
                 hamburger.querySelector('i').classList.add('fa-bars');
                 hamburger.querySelector('i').classList.remove('fa-times');
             });
