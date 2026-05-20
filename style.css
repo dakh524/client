@@ -911,7 +911,7 @@ ul { list-style:none; }
 =================== */
 @media (max-width: 768px) {
     /* GENERAL RULES */
-    body { overflow-x: hidden; }
+    html, body { overflow-x: hidden; max-width: 100%; position: relative; }
     h1, h2, .section-title { font-size: 2rem !important; line-height: 1.3 !important; margin-bottom: 25px; }
     p, .section-subtitle { font-size: 1rem !important; line-height: 1.6 !important; }
     
@@ -934,10 +934,11 @@ ul { list-style:none; }
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1), visibility 0.5s ease;
         z-index: 999;
         box-shadow: none;
         border: none;
+        visibility: hidden;
     }
     .main-nav-wrapper::before {
         content: '';
@@ -961,6 +962,7 @@ ul { list-style:none; }
     }
     .main-nav-wrapper.open { 
         right: 0; 
+        visibility: visible;
     }
     .main-nav { 
         display: flex;
