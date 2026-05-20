@@ -1090,7 +1090,7 @@ ul { list-style:none; }
     
     .hero-content { 
         width: 100%; 
-        padding: 120px 20px 50px !important; 
+        padding: 120px 20px 140px !important; 
         background: var(--purple) !important;
         position: relative;
         z-index: 10;
@@ -1148,7 +1148,7 @@ ul { list-style:none; }
     
     .hero-right { 
         width: 100%; 
-        padding: 60px 20px 50px !important; 
+        padding: 40px 20px 50px !important; 
         background: var(--yellow) !important;
         z-index: 5;
         position: relative;
