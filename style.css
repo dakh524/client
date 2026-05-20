@@ -59,19 +59,19 @@ body.loaded .enroll-banner {
 }
 
 .site-header {
-    transform: translateY(-100%);
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-top: -120px;
+    transition: margin-top 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 body.loaded .site-header {
-    transform: translateY(0);
+    margin-top: 0;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap');
 
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior: smooth; }
-body { font-family:'Poppins', sans-serif; color:var(--text); overflow-x:hidden; }
+html, body { font-family:'Poppins', sans-serif; color:var(--text); overflow-x:hidden; max-width: 100%; width: 100%; }
 img { max-width:100%; display:block; }
 a { text-decoration:none; color:inherit; transition:var(--transition); }
 ul { list-style:none; }
@@ -924,7 +924,7 @@ ul { list-style:none; }
     .main-nav-wrapper {
         position: fixed;
         top: 0;
-        right: -100%;
+        left: 0;
         width: 100%; 
         height: 100vh;
         background: linear-gradient(135deg, rgba(81, 34, 105, 0.98) 0%, rgba(41, 13, 56, 0.99) 100%);
@@ -934,11 +934,16 @@ ul { list-style:none; }
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1), visibility 0.5s ease;
         z-index: 999;
         box-shadow: none;
         border: none;
+        
+        opacity: 0;
         visibility: hidden;
+        transform: scale(0.95);
+        transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                    visibility 0.4s;
     }
     .main-nav-wrapper::before {
         content: '';
@@ -961,8 +966,9 @@ ul { list-style:none; }
         pointer-events: none;
     }
     .main-nav-wrapper.open { 
-        right: 0; 
+        opacity: 1;
         visibility: visible;
+        transform: scale(1);
     }
     .main-nav { 
         display: flex;
