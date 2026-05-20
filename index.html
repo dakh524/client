@@ -507,23 +507,86 @@
 </section>
 
 <!-- ========== GUIDING PRINCIPLES ========== -->
-<section class="guiding-principles" style="background: var(--purple); padding: 100px 20px; text-align: center; color: var(--white); overflow: hidden;">
-    <div class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px;">
-        <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.3; text-shadow: 0 4px 15px rgba(0,0,0,0.2); max-width: 800px; margin: 0 auto;">
-            <span style="color: var(--yellow);">Guided</span> by Integrity,<br>
-            <span style="color: var(--yellow);">Defined</span> by Excellence
-        </h2>
-        
-        <div class="animated-teddy-container" style="margin-top: 10px;">
-            <img src="https://images.unsplash.com/photo-1559454403-b8fb88521f11?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Teddy Bear" style="width: 220px; height: 220px; object-fit: cover; border-radius: 50%; border: 8px solid var(--yellow); box-shadow: 0 15px 35px rgba(0,0,0,0.3); animation: floatTeddy 4s ease-in-out infinite;">
+<section class="guiding-principles" style="position: relative; background: radial-gradient(circle at center, #8b43b5 0%, var(--purple) 100%); padding: 140px 20px; text-align: center; color: var(--white); overflow: hidden; box-shadow: inset 0 0 50px rgba(0,0,0,0.3);">
+    
+    <!-- Animated Violet Fishes -->
+    <div class="fish-wrapper" style="position: absolute; top: 30%; left: -200px; animation: swimFish 14s linear infinite;">
+        <svg viewBox="0 0 120 70" width="160" height="90" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));">
+            <defs>
+                <linearGradient id="fishGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#e0aaff"/>
+                    <stop offset="100%" stop-color="#9d4edd"/>
+                </linearGradient>
+            </defs>
+            <path d="M 80,35 C 105,10 120,20 115,35 C 120,50 105,60 80,35 Z" fill="#c77dff" /> <!-- Tail -->
+            <ellipse cx="50" cy="35" rx="40" ry="25" fill="url(#fishGrad1)" /> <!-- Body -->
+            <path d="M 40,10 Q 50,-5 60,10 Z" fill="#e0aaff" /> <!-- Top Fin -->
+            <path d="M 40,60 Q 50,75 60,60 Z" fill="#e0aaff" /> <!-- Bottom Fin -->
+            <circle cx="30" cy="28" r="4.5" fill="#fff" /> <!-- Eye -->
+            <circle cx="28" cy="28" r="2.5" fill="#000" /> <!-- Pupil -->
+            <path d="M 20,38 Q 25,44 32,40" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" /> <!-- Smile -->
+            <!-- Highlight -->
+            <path d="M 30,18 Q 50,10 65,18" stroke="rgba(255,255,255,0.3)" stroke-width="3" fill="none" stroke-linecap="round" />
+        </svg>
+    </div>
+
+    <div class="fish-wrapper" style="position: absolute; top: 60%; left: -200px; animation: swimFish 18s linear infinite 7s; transform: scale(0.6); opacity: 0.9;">
+        <svg viewBox="0 0 120 70" width="120" height="70" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));">
+            <defs>
+                <linearGradient id="fishGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#ffb3c6"/>
+                    <stop offset="100%" stop-color="#ff006e"/>
+                </linearGradient>
+            </defs>
+            <path d="M 80,35 C 105,10 120,20 115,35 C 120,50 105,60 80,35 Z" fill="#ffb3c6" />
+            <ellipse cx="50" cy="35" rx="40" ry="25" fill="url(#fishGrad2)" />
+            <path d="M 40,10 Q 50,-5 60,10 Z" fill="#ffb3c6" />
+            <path d="M 40,60 Q 50,75 60,60 Z" fill="#ffb3c6" />
+            <circle cx="30" cy="28" r="3.5" fill="#fff" />
+            <circle cx="28" cy="28" r="2" fill="#000" />
+        </svg>
+    </div>
+
+    <!-- Background Bubbles -->
+    <div class="bubbles-container">
+        <div class="g-bubble" style="left: 15%; animation-duration: 5s; animation-delay: 0s;"></div>
+        <div class="g-bubble" style="left: 45%; animation-duration: 7s; animation-delay: 2s; width: 30px; height: 30px;"></div>
+        <div class="g-bubble" style="left: 75%; animation-duration: 6s; animation-delay: 1s;"></div>
+        <div class="g-bubble" style="left: 90%; animation-duration: 8s; animation-delay: 3s; width: 15px; height: 15px;"></div>
+    </div>
+
+    <div class="container" style="position: relative; z-index: 10;">
+        <div style="background: rgba(255,255,255,0.05); padding: 50px 30px; border-radius: 30px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.2);">
+            <h2 style="font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 900; line-height: 1.3; margin: 0; text-transform: capitalize;">
+                <span style="color: var(--yellow); display: block; margin-bottom: 5px; text-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);">Guided by Integrity,</span>
+                <span style="color: var(--white); text-shadow: 0 5px 15px rgba(0,0,0,0.3);">Defined by Excellence</span>
+            </h2>
         </div>
     </div>
 </section>
 <style>
-@keyframes floatTeddy {
-    0% { transform: translateY(0) rotate(-3deg); }
-    50% { transform: translateY(-25px) rotate(3deg); }
-    100% { transform: translateY(0) rotate(-3deg); }
+@keyframes swimFish {
+    0% { left: -200px; transform: translateY(0) scaleX(-1); }
+    25% { transform: translateY(-20px) scaleX(-1) rotate(-5deg); }
+    50% { transform: translateY(0) scaleX(-1) rotate(0deg); }
+    75% { transform: translateY(20px) scaleX(-1) rotate(5deg); }
+    100% { left: 110%; transform: translateY(0) scaleX(-1); }
+}
+.g-bubble {
+    position: absolute;
+    bottom: -50px;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.1));
+    border-radius: 50%;
+    animation: riseBubble linear infinite;
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.5);
+}
+@keyframes riseBubble {
+    0% { bottom: -50px; transform: translateX(0); opacity: 0; }
+    20% { opacity: 0.8; }
+    80% { opacity: 0.8; }
+    100% { bottom: 120%; transform: translateX(-30px); opacity: 0; }
 }
 </style>
 
