@@ -475,36 +475,51 @@
     <div class="container">
         <h2 class="section-title center">Blogs</h2>
         <div class="blog-grid">
-            <div class="blog-card" data-reveal>
+            <div class="blog-card" data-reveal onclick="openBlogModal('blog1')" style="cursor: pointer;">
                 <div class="blog-thumb"><img src="live%20image%201.jpeg" alt="Blog 1"></div>
                 <div class="blog-body">
                     <span class="blog-date">2025-01-08</span>
                     <h4>A Parent's Guide to Nursery Education</h4>
                     <p>What to Expect in Nursery Education...</p>
-                    <a href="#" class="btn btn-purple-sm">Read More</a>
+                    <a href="javascript:void(0)" class="btn btn-purple-sm">Read More</a>
                 </div>
             </div>
-            <div class="blog-card" data-reveal>
+            <div class="blog-card" data-reveal onclick="openBlogModal('blog2')" style="cursor: pointer;">
                 <div class="blog-thumb"><img src="live%20image%202.jpeg" alt="Blog 2"></div>
                 <div class="blog-body">
                     <span class="blog-date">2025-01-08</span>
                     <h4>Choosing the Ideal Age for Daycare</h4>
                     <p>Wandering about the best age for daycare?</p>
-                    <a href="#" class="btn btn-purple-sm">Read More</a>
+                    <a href="javascript:void(0)" class="btn btn-purple-sm">Read More</a>
                 </div>
             </div>
-            <div class="blog-card" data-reveal>
+            <div class="blog-card" data-reveal onclick="openBlogModal('blog3')" style="cursor: pointer;">
                 <div class="blog-thumb"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Blog 3"></div>
                 <div class="blog-body">
                     <span class="blog-date">2025-01-08</span>
                     <h4>How Teddi Kidz's Pentemind Revolutionizes</h4>
                     <p>Discover Pentemind, Teddi Kidz's innovative pedagogy...</p>
-                    <a href="#" class="btn btn-purple-sm">Read More</a>
+                    <a href="javascript:void(0)" class="btn btn-purple-sm">Read More</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Blog Modal -->
+<div id="blogModal" class="blog-modal">
+    <div class="blog-modal-content">
+        <span class="close-blog-modal" onclick="closeBlogModal()">&times;</span>
+        <div class="blog-modal-header">
+            <img id="blogModalImg" src="" alt="Blog Image">
+        </div>
+        <div class="blog-modal-body">
+            <span id="blogModalDate" class="blog-date" style="display:inline-block; margin-bottom:10px;"></span>
+            <h2 id="blogModalTitle" style="color:var(--purple); margin-bottom:20px;"></h2>
+            <div id="blogModalText" style="line-height:1.8; color:#555;"></div>
+        </div>
+    </div>
+</div>
 
 <!-- ========== GUIDING PRINCIPLES & QUOTE ========== -->
 <section class="guiding-principles" style="background: var(--cream); padding: 120px 20px; position: relative; overflow: hidden;">
