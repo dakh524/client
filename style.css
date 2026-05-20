@@ -822,58 +822,7 @@ ul { list-style:none; }
 .deco-plane { top: 40px; left: 50%; font-size: 36px; }
 .deco-cherries { bottom: 20px; right: 25%; }
 
-/* ===================
-   FRANCHISE BANNER
-=================== */
-.franchise-banner {
-    position:relative;
-    background:var(--yellow);
-    padding:120px 0 100px;
-    overflow:hidden;
-}
-.franchise-wave-top {
-    position:absolute; top:-2px; left:0; width:100%; height:80px;
-    background:var(--white);
-    clip-path:ellipse(55% 100% at 50% 0%);
-}
-.franchise-wave-bottom {
-    position:absolute; bottom:-2px; left:0; width:100%; height:80px;
-    background:var(--white);
-    clip-path:ellipse(55% 100% at 50% 100%);
-}
-.franchise-inner { position:relative; z-index:2; max-width: 1200px; margin: 0 auto; }
 
-.franchise-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    gap: 60px;
-}
-
-.franchise-img-box { position: relative; }
-
-.teddy-img {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    border-radius: 40px;
-    box-shadow: 0 20px 40px rgba(107, 45, 139, 0.2);
-    transform: rotate(-3deg);
-    transition: var(--transition);
-    border: 10px solid var(--white);
-}
-
-.teddy-img:hover {
-    transform: rotate(0) scale(1.02);
-}
-
-.franchise-text { text-align: left; }
-.franchise-text h2 { font-size:48px; font-weight:900; color:var(--purple); margin-bottom:10px; }
-.franchise-text p { font-size:24px; color:var(--purple); font-weight:700; margin-bottom:40px; }
-.franchise-stats { display:flex; justify-content:flex-start; gap:50px; flex-wrap:wrap; }
-.f-stat { display:flex; flex-direction:column; align-items:flex-start; }
-.f-num { font-size:54px; font-weight:900; color:var(--purple); line-height:1; }
-.f-lab { font-size:14px; font-weight:700; color:var(--purple); letter-spacing:2px; margin-top:5px; }
 
 /* ===================
    FAQs
@@ -1047,13 +996,7 @@ ul { list-style:none; }
     .triangle-border { width: 170px; height: 170px; }
     .whyus-bg-video { display: none; }
     .whyus-bg-overlay { background: var(--purple); opacity: 0.95; }
-    
-    /* FRANCHISE */
-    .franchise-banner { padding: 80px 20px !important; }
-    .franchise-grid { grid-template-columns: 1fr !important; gap: 40px; text-align: center; }
-    .franchise-stats { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 20px; }
-    .f-stat { min-width: 120px; }
-    .teddy-img { width: 100%; max-width: 280px; margin: 0 auto; }
+
     
     /* FAQs & BLOGS & TESTIMONIALS */
     .faqs { padding: 70px 20px !important; }
