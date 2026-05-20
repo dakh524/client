@@ -72,6 +72,10 @@ body.loaded .site-header {
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior: smooth; }
 html, body { font-family:'Poppins', sans-serif; color:var(--text); overflow-x:hidden; max-width: 100%; width: 100%; }
+.mobile-only { display: none !important; }
+.desktop-only { display: block; }
+span.desktop-only { display: inline; }
+span.highlight-yellow { color: var(--yellow); }
 img { max-width:100%; display:block; }
 a { text-decoration:none; color:inherit; transition:var(--transition); }
 ul { list-style:none; }
@@ -1032,14 +1036,199 @@ ul { list-style:none; }
     .marquee-wrapper { margin-top: -15px; margin-bottom: 30px; padding: 12px 0; }
     .marquee-content span { font-size: 16px; margin: 0 15px; }
     
+    .mobile-only { display: block !important; }
+    span.mobile-only { display: inline !important; }
+    i.mobile-only { display: inline-block !important; }
+    .desktop-only { display: none !important; }
+    
     /* HERO FIX */
-    .hero { flex-direction: column !important; text-align: center; padding: 110px 20px 50px !important; min-height: auto; gap: 30px; }
-    .hero-content { width: 100%; padding: 0; order: 1; animation: none; opacity: 1; transform: none; }
-    .hero-content h1 { font-size: 2.6rem !important; margin-bottom: 15px; text-shadow: 0 2px 10px rgba(0,0,0,0.15); line-height: 1.2 !important; }
-    .hero-tagline { font-size: 1.2rem !important; margin-bottom: 25px; font-weight: 500; }
-    .hero-right { width: 100%; order: 2; padding: 0; margin-top: 10px; }
-    .hero-child-frame { width: 100%; height: auto; aspect-ratio: 1/1; max-width: 280px; margin: 0 auto; box-shadow: 0 15px 35px rgba(0,0,0,0.2); border: 8px solid rgba(255,255,255,0.2); }
-    .enroll-banner { font-size: 1.1rem; padding: 14px 35px; border-radius: 50px; box-shadow: 0 8px 20px rgba(0,0,0,0.25); transform: none; display: inline-flex; width: auto; margin: 0 auto; }
+    .hero { 
+        flex-direction: column !important; 
+        text-align: center; 
+        padding: 100px 20px 50px !important; 
+        min-height: auto; 
+        gap: 40px; 
+        background: var(--yellow) !important;
+        position: relative;
+        overflow: hidden !important;
+    }
+    .blob-1 { 
+        position: absolute !important;
+        background: var(--purple) !important; 
+        width: 140vw !important; 
+        height: 60vh !important; 
+        top: -5vh !important; 
+        left: -20vw !important; 
+        border-radius: 0 0 50% 50% / 0 0 35% 35% !important;
+        z-index: 1 !important;
+        transform: rotate(-8deg) !important;
+    }
+    .blob-2 { 
+        display: none !important; 
+    }
+    
+    .deco-airplane {
+        position: absolute;
+        top: 8%;
+        right: 12%;
+        font-size: 32px;
+        color: rgba(255, 255, 255, 0.25);
+        z-index: 5;
+        transform: rotate(15deg);
+    }
+    .deco-star {
+        position: absolute;
+        top: 28%;
+        right: 15%;
+        font-size: 26px;
+        color: rgba(255, 255, 255, 0.15);
+        z-index: 5;
+        transform: rotate(20deg);
+    }
+    .deco-dots {
+        position: absolute;
+        top: 38%;
+        left: 6%;
+        width: 45px;
+        height: 70px;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.15) 20%, transparent 20%);
+        background-size: 12px 12px;
+        z-index: 5;
+    }
+    
+    .hero-content { 
+        width: 100%; 
+        padding: 0; 
+        order: 1; 
+        animation: none; 
+        opacity: 1; 
+        transform: none; 
+        z-index: 10;
+        position: relative;
+    }
+    .hero-content h1 { 
+        font-family: 'Outfit', sans-serif;
+        font-size: 2.5rem !important; 
+        font-weight: 800;
+        margin-bottom: 5px; 
+        text-shadow: 0 2px 10px rgba(0,0,0,0.15); 
+        line-height: 1.25 !important; 
+        color: var(--white);
+    }
+    
+    .hero-divider-mobile {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin: 15px auto 20px;
+    }
+    .hero-divider-mobile .divider-line {
+        width: 85px;
+        height: 4px;
+        background: var(--yellow);
+        border-radius: 2px;
+    }
+    .hero-divider-mobile .divider-heart {
+        color: var(--yellow);
+        font-size: 18px;
+    }
+    
+    .hero-tagline { 
+        font-size: 1.25rem !important; 
+        line-height: 1.5 !important;
+        margin-bottom: 30px; 
+        font-weight: 500; 
+        color: rgba(255, 255, 255, 0.95);
+        max-width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .hero-right { 
+        width: 100%; 
+        order: 2; 
+        padding: 0; 
+        margin-top: 10px; 
+        z-index: 10;
+        position: relative;
+    }
+    .hero-child-frame { 
+        width: 100%; 
+        height: auto; 
+        aspect-ratio: 1/1; 
+        max-width: 290px; 
+        margin: 0 auto; 
+        box-shadow: 0 15px 35px rgba(107, 45, 139, 0.25) !important; 
+        border: 8px solid var(--white) !important; 
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70% !important;
+        overflow: visible !important;
+        position: relative;
+    }
+    .hero-child-img {
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70% !important;
+    }
+    
+    .hero-badge {
+        position: absolute;
+        bottom: -5px;
+        left: -15px;
+        background: var(--white);
+        border-radius: 18px;
+        padding: 10px 16px;
+        display: flex !important;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        z-index: 12;
+        max-width: 220px;
+        text-align: left;
+        border: 1px solid rgba(107, 45, 139, 0.08);
+    }
+    .hero-badge .badge-icon {
+        width: 38px;
+        height: 38px;
+        background: var(--purple);
+        color: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+    .hero-badge .badge-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+    }
+    .hero-badge .badge-text span {
+        font-size: 11px;
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+    .hero-badge .badge-text strong {
+        font-size: 13px;
+        color: var(--purple);
+        font-weight: 700;
+    }
+    
+    .enroll-banner { 
+        font-size: 1.15rem; 
+        padding: 14px 38px; 
+        border-radius: 50px; 
+        box-shadow: 0 8px 20px rgba(0,0,0,0.25); 
+        transform: none; 
+        display: inline-flex; 
+        width: auto; 
+        margin: 0 auto; 
+        border: 2px solid var(--white);
+        background: var(--yellow);
+        color: var(--purple);
+    }
+    .enroll-banner:hover {
+        transform: scale(1.05);
+    }
     
     /* ABOUT FIX */
     .about { padding: 70px 20px !important; flex-direction: column; background: var(--cream); }
