@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dakhedusolutions - Custom Website Development</title>
+    <meta name="description" content="We build stunning, responsive, and high-performance websites for your business.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --dark-bg: #0b071e;
+            --purple-glow: rgba(107, 45, 139, 0.4);
+            --electric-blue: #00e5ff;
+            --hot-pink: #ff4081;
+            --purple: #6B2D8B;
+            --yellow: #FFC107;
+            --cream: #FFFDE7;
+            --white: #ffffff;
+            --text-light: #f5f5f7;
+            --text-muted: #a1a1a6;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(107, 45, 139, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 229, 255, 0.1) 0%, transparent 40%);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 40px 20px;
+        }
+
+        /* ========== LOADER WRAPPER (Matching Daycare Train Theme) ========== */
+        .loader-wrapper {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #e8f5e9; /* soft pastel blue-green sky */
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease-in-out;
+            overflow: hidden;
+        }
+
+        /* Loader Background Decorations */
+        .loader-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+        }
+
+        .cloud {
+            position: absolute;
+            background: var(--white);
+            border-radius: 100px;
+            opacity: 0.9;
+            animation: floatCloud 25s infinite linear;
+        }
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background: var(--white);
+            border-radius: 50%;
+        }
+        .cloud-1 {
+            width: 120px; height: 40px;
+            top: 15%; left: -150px;
+            animation-duration: 30s;
+        }
+        .cloud-1::before { width: 50px; height: 50px; top: -25px; left: 15px; }
+        .cloud-1::after { width: 70px; height: 70px; top: -35px; right: 15px; }
+
+        .cloud-2 {
+            width: 160px; height: 50px;
+            top: 25%; left: -200px;
+            animation-duration: 20s;
+            animation-delay: 5s;
+        }
+        .cloud-2::before { width: 70px; height: 70px; top: -35px; left: 20px; }
+        .cloud-2::after { width: 90px; height: 90px; top: -45px; right: 20px; }
+
+        .hill {
+            position: absolute;
+            bottom: -50px;
+            width: 140%;
+            height: 35%;
+            background: #c8e6c9; /* soft green hill */
+            border-radius: 50% 50% 0 0;
+            left: -20%;
+            z-index: 1;
+        }
+        .hill-2 {
+            height: 28%;
+            background: #a5d6a7; /* foreground hill */
+            left: -10%;
+            z-index: 2;
+        }
+
+        @keyframes floatCloud {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(100vw + 350px)); }
+        }
+
+        /* Railroad Track */
+        .track-container {
+            position: absolute;
+            bottom: 22%;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            z-index: 3;
+        }
+        .track-rail {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: #78909c;
+            border-top: 2px solid #b0bec5;
+        }
+        .track-ties {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: repeating-linear-gradient(90deg, #5d4037, #5d4037 15px, transparent 15px, transparent 45px);
+        }
+
+        /* Toy Train Container */
+        .train-assembly {
+            position: absolute;
+            bottom: 24%;
+            left: -350px; /* starts off-screen */
+            display: flex;
+            align-items: flex-end;
+            z-index: 4;
+            animation: trainPass 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes trainPass {
+            0% { left: -350px; }
+            100% { left: calc(100% + 50px); }
+        }
+
+        /* Locomotive Engine */
+        .train-engine {
+            width: 80px;
+            height: 65px;
+            background: var(--purple);
+            border-radius: 12px 25px 5px 5px;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            animation: chug-vibe 0.15s infinite alternate;
+        }
+
+        .cabin {
+            width: 40px;
+            height: 40px;
+            background: #4e1a66;
+            border-radius: 6px 15px 5px 5px;
+            position: absolute;
+            top: -28px;
+            right: 5px;
+            border: 3px solid var(--purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cabin-window {
+            width: 20px;
+            height: 20px;
+            background: var(--yellow);
+            border-radius: 4px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        }
+
+        .smokestack {
+            width: 14px;
+            height: 25px;
+            background: var(--yellow);
+            position: absolute;
+            top: -22px;
+            left: 14px;
+            border-radius: 4px 4px 0 0;
+            border: 2px solid var(--purple);
+        }
+        .smokestack::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -4px;
+            width: 22px;
+            height: 6px;
+            background: var(--purple);
+            border-radius: 3px;
+        }
+
+        /* Smoke Puffs */
+        .smoke-generator {
+            position: absolute;
+            top: -30px;
+            left: 18px;
+        }
+        .smoke-puff {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 50%;
+            opacity: 0;
+            animation: riseSmoke 1.2s infinite ease-out;
+        }
+        .smoke-puff:nth-child(2) { animation-delay: 0.4s; }
+        .smoke-puff:nth-child(3) { animation-delay: 0.8s; }
+
+        @keyframes riseSmoke {
+            0% { transform: translateY(0) scale(0.6); opacity: 0.9; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-45px) translateX(20px) scale(2.2); opacity: 0; }
+        }
+
+        /* Carriages */
+        .train-carriage {
+            width: 60px;
+            height: 44px;
+            margin-right: 10px;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            color: var(--white);
+            font-size: 24px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            border: 3px solid var(--purple);
+            animation: chug-vibe 0.15s infinite alternate;
+        }
+        .carriage-1 { background: var(--yellow); color: var(--purple); border-color: var(--yellow); }
+        .carriage-2 { background: #e040fb; color: var(--white); border-color: #e040fb; }
+
+        .coupling-link {
+            width: 12px;
+            height: 6px;
+            background: #455a64;
+            margin-right: -2px;
+            margin-bottom: 10px;
+        }
+
+        /* Train Wheels */
+        .train-wheel {
+            width: 20px;
+            height: 20px;
+            background: #263238;
+            border: 4px dashed var(--yellow);
+            border-radius: 50%;
+            position: absolute;
+            bottom: -10px;
+            animation: rollWheel 0.4s infinite linear;
+        }
+        .train-engine .wheel-1 { left: 10px; }
+        .train-engine .wheel-2 { right: 10px; }
+        .train-carriage .wheel-1 { left: 8px; }
+        .train-carriage .wheel-2 { right: 8px; }
+
+        @keyframes rollWheel {
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes chug-vibe {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-2px); }
+        }
+
+        /* Loading Bouncing Text */
+        .loading-text {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 24px;
+            color: var(--purple);
+            position: relative;
+            z-index: 5;
+            margin-top: -120px;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .loading-text span {
+            display: inline-block;
+            animation: bounceLetter 1.2s infinite ease-in-out;
+        }
+        .loading-text span:nth-child(2) { animation-delay: 0.1s; }
+        .loading-text span:nth-child(3) { animation-delay: 0.2s; }
+        .loading-text span:nth-child(4) { animation-delay: 0.3s; }
+        .loading-text span:nth-child(5) { animation-delay: 0.4s; }
+        .loading-text span:nth-child(6) { animation-delay: 0.5s; }
+
+        @keyframes bounceLetter {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); color: var(--yellow); }
+        }
+
+
+        /* ========== PREMIUM INQUIRY PAGE LAYOUT ========== */
+        .main-container {
+            width: 100%;
+            max-width: 750px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 32px;
+            border: 2px solid var(--glass-border);
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+            display: none;
+        }
+        
+        .main-container.show {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Content Header */
+        .agency-header {
+            padding: 45px 40px 30px;
+            text-align: center;
+            border-bottom: 1px solid var(--glass-border);
+            position: relative;
+        }
+        
+        .glow-accent {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, var(--electric-blue) 0%, transparent 70%);
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .agency-header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1.8rem, 5vw, 2.6rem);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--white) 30%, var(--electric-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+        
+        .agency-header p {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 580px;
+            margin: 0 auto;
+        }
+        
+        .agency-header p strong {
+            color: var(--electric-blue);
+        }
+
+        /* Form styling */
+        .inquiry-form {
+            padding: 40px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-group label i {
+            color: var(--electric-blue);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2px solid var(--glass-border);
+            border-radius: 16px;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--white);
+            outline: none;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .form-control:focus {
+            border-color: var(--electric-blue);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.15);
+        }
+        
+        select.form-control option {
+            background-color: var(--dark-bg);
+            color: var(--white);
+        }
+
+        /* Action Buttons */
+        .form-actions {
+            grid-column: span 2;
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            max-width: 380px;
+            background: linear-gradient(135deg, var(--electric-blue) 0%, #00b0ff 100%);
+            color: #05030f;
+            padding: 18px 30px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 16px;
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 8px 25px rgba(0, 229, 255, 0.3);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 229, 255, 0.5);
+        }
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .back-link {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        .back-link:hover {
+            color: var(--white);
+            transform: translateX(-2px);
+        }
+
+        /* Success Redirect Overlay */
+        .redirect-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #080415;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        .redirect-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .redirect-icon {
+            font-size: 80px;
+            color: var(--electric-blue);
+            margin-bottom: 25px;
+            animation: pulse-glow 1.5s infinite;
+        }
+
+        .redirect-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--white) 30%, var(--electric-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .redirect-text {
+            font-size: 16px;
+            max-width: 450px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: var(--text-muted);
+        }
+
+        .redirect-loader {
+            width: 80px;
+            height: 12px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+        .redirect-bar {
+            position: absolute;
+            height: 100%;
+            width: 40%;
+            background: var(--electric-blue);
+            border-radius: 6px;
+            animation: loadingProgress 1.5s infinite ease-in-out;
+        }
+
+        @keyframes loadingProgress {
+            0% { left: -40%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.4)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.7)); }
+        }
+
+        /* Responsive adaptations */
+        @media (max-width: 650px) {
+            .inquiry-form {
+                grid-template-columns: 1fr;
+                padding: 30px 24px;
+                gap: 18px;
+            }
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            body {
+                padding: 20px 10px;
+            }
+            .agency-header {
+                padding: 35px 24px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== ANIMATED LOADER SCREEN ========== -->
+    <div class="loader-wrapper" id="pageLoader">
+        <div class="loader-bg">
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="hill hill-2"></div>
+            <div class="hill"></div>
+        </div>
+        
+        <!-- Track assembly -->
+        <div class="track-container">
+            <div class="track-ties"></div>
+            <div class="track-rail"></div>
+        </div>
+        
+        <!-- Toy Train -->
+        <div class="train-assembly">
+            <!-- Carriage 2 (Trailing) -->
+            <div class="train-carriage carriage-2">
+                B
+                <div class="train-wheel wheel-1"></div>
+                <div class="train-wheel wheel-2"></div>
+            </div>
+            <div class="coupling-link"></div>
+            
+            <!-- Carriage 1 (Middle) -->
+            <div class="train-carriage carriage-1">
+                A
+                <div class="train-wheel wheel-1"></div>
+                <div class="train-wheel wheel-2"></div>
+            </div>
+            <div class="coupling-link"></div>
+            
+            <!-- Engine Locomotive (Front) -->
+            <div class="train-engine">
+                <div class="cabin">
+                    <div class="cabin-window"></div>
+                </div>
+                <div class="smokestack"></div>
+                <div class="smoke-generator">
+                    <div class="smoke-puff"></div>
+                    <div class="smoke-puff"></div>
+                    <div class="smoke-puff"></div>
+                </div>
+                <div class="train-wheel wheel-1"></div>
+                <div class="train-wheel wheel-2"></div>
+            </div>
+        </div>
+        
+        <!-- Bouncing status text -->
+        <div class="loading-text">
+            <span>L</span><span>o</span><span>a</span><span>d</span><span>i</span><span>n</span><span>g</span>...
+        </div>
+    </div>
+
+    <!-- ========== BUSINESS INQUIRY CONTAINER ========== -->
+    <div class="main-container" id="inquiryContainer">
+        <div class="glow-accent"></div>
+        
+        <div class="agency-header">
+            <h1>We Build Websites for Your Business! 🚀</h1>
+            <p>
+                Transform your business with a stunning, high-performance website. Fill out the quick details below, or contact us directly at <strong>+91 8667399640</strong>.
+            </p>
+        </div>
+
+        <form class="inquiry-form" id="agencyForm" onsubmit="handleFormSubmit(event)">
+            <!-- Contact Name -->
+            <div class="form-group">
+                <label for="contactName"><i class="fas fa-user"></i> Your Name *</label>
+                <input type="text" id="contactName" class="form-control" placeholder="Enter your full name" required>
+            </div>
+
+            <!-- Business Name -->
+            <div class="form-group">
+                <label for="businessName"><i class="fas fa-briefcase"></i> Business / Brand Name *</label>
+                <input type="text" id="businessName" class="form-control" placeholder="e.g. Sunrise Daycare" required>
+            </div>
+
+            <!-- Contact Number -->
+            <div class="form-group">
+                <label for="phone"><i class="fab fa-whatsapp"></i> WhatsApp Number *</label>
+                <input type="tel" id="phone" class="form-control" placeholder="e.g. 10 digit number" pattern="[0-9]{10}" required title="Please enter a valid 10-digit mobile number">
+            </div>
+
+            <!-- Website Category -->
+            <div class="form-group">
+                <label for="category"><i class="fas fa-tags"></i> Website Category *</label>
+                <select id="category" class="form-control" required>
+                    <option value="" disabled selected>Select category</option>
+                    <option value="School / Preschool">School / Preschool</option>
+                    <option value="Restaurant / Cafe">Restaurant / Cafe</option>
+                    <option value="E-Commerce Store">E-Commerce Store</option>
+                    <option value="Retail / Local Shop">Retail / Local Shop</option>
+                    <option value="Corporate Website">Corporate Website</option>
+                    <option value="Portfolio Website">Portfolio / Personal</option>
+                    <option value="Other Business">Other / Custom</option>
+                </select>
+            </div>
+
+            <!-- Requirements / Message -->
+            <div class="form-group full-width">
+                <label for="requirements"><i class="fas fa-laptop-code"></i> Requirements / Features Needed</label>
+                <textarea id="requirements" class="form-control" rows="4" placeholder="Briefly describe what pages, features, or design elements you want for your site..."></textarea>
+            </div>
+
+            <!-- Submit & Action Grid -->
+            <div class="form-actions">
+                <button type="submit" class="submit-btn">
+                    Connect on WhatsApp <i class="fab fa-whatsapp"></i>
+                </button>
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to TeddyKidz
+                </a>
+            </div>
+        </form>
+
+        <!-- Redirect Overlay -->
+        <div class="redirect-overlay" id="redirectOverlay">
+            <i class="fab fa-whatsapp redirect-icon"></i>
+            <div class="redirect-title">Opening WhatsApp...</div>
+            <div class="redirect-text">
+                Your details are ready! We are launching WhatsApp to connect you directly with the development team at Dakhedusolutions.
+            </div>
+            <div class="redirect-loader">
+                <div class="redirect-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== JAVASCRIPT LOGIC ========== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Control Loader Fadeout
+            const loader = document.getElementById('pageLoader');
+            const container = document.getElementById('inquiryContainer');
+
+            // Show loader for 2.6 seconds (the train crosses the screen in 3s)
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                container.style.display = 'block';
+                
+                setTimeout(() => {
+                    container.classList.add('show');
+                    loader.style.display = 'none';
+                }, 100);
+            }, 2600);
+        });
+
+        // Form Submission to WhatsApp
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const contactName = document.getElementById('contactName').value.trim();
+            const businessName = document.getElementById('businessName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const category = document.getElementById('category').value;
+            const requirements = document.getElementById('requirements').value.trim() || 'Not specified.';
+
+            // Construct the beautifully structured WhatsApp Message
+            const formattedText = 
+`🚀 *NEW WEBSITE INQUIRY - DAKHEDU SOLUTIONS* 🚀
+----------------------------------------
+👤 *Contact Name:* ${contactName}
+🏢 *Business Name:* ${businessName}
+📞 *WhatsApp Number:* ${phone}
+💼 *Website Category:* ${category}
+💬 *Requirements:* ${requirements}
+----------------------------------------
+I would like to get a quote and discuss building a website. Thank you!`;
+
+            // WhatsApp link encoding targeting +91 8667399640
+            const targetPhone = "918667399640";
+            const encodedText = encodeURIComponent(formattedText);
+            const waUrl = `https://wa.me/${targetPhone}?text=${encodedText}`;
+
+            // Show Redirect Screen
+            const redirectOverlay = document.getElementById('redirectOverlay');
+            redirectOverlay.classList.add('active');
+
+            // Redirect after a small delay
+            setTimeout(() => {
+                window.location.href = waUrl;
+            }, 1800);
+        }
+    </script>
+</body>
+</html>

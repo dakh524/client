@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission Inquiry - TeddyKidz</title>
+    <meta name="description" content="Enroll your child in TeddyKidz Preschool today. Nurturing little minds with love and creativity.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --purple: #6B2D8B;
+            --yellow: #FFC107;
+            --lavender: #F3E5F5;
+            --white: #ffffff;
+            --cream: #FFFDE7;
+            --grey: #555555;
+            --text: #2D2D2D;
+            --text-muted: #555555;
+            --light-bg: #F8F9FA;
+            --shadow: 0 15px 35px rgba(107, 45, 139, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--cream);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 40px 20px;
+        }
+
+        /* ========== LOADER WRAPPER ========== */
+        .loader-wrapper {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #e8f5e9; /* soft pastel blue-green sky */
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease-in-out;
+            overflow: hidden;
+        }
+
+        /* Loader Background Decorations */
+        .loader-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+        }
+
+        .cloud {
+            position: absolute;
+            background: var(--white);
+            border-radius: 100px;
+            opacity: 0.9;
+            animation: floatCloud 25s infinite linear;
+        }
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background: var(--white);
+            border-radius: 50%;
+        }
+        .cloud-1 {
+            width: 120px; height: 40px;
+            top: 15%; left: -150px;
+            animation-duration: 30s;
+        }
+        .cloud-1::before { width: 50px; height: 50px; top: -25px; left: 15px; }
+        .cloud-1::after { width: 70px; height: 70px; top: -35px; right: 15px; }
+
+        .cloud-2 {
+            width: 160px; height: 50px;
+            top: 25%; left: -200px;
+            animation-duration: 20s;
+            animation-delay: 5s;
+        }
+        .cloud-2::before { width: 70px; height: 70px; top: -35px; left: 20px; }
+        .cloud-2::after { width: 90px; height: 90px; top: -45px; right: 20px; }
+
+        .hill {
+            position: absolute;
+            bottom: -50px;
+            width: 140%;
+            height: 35%;
+            background: #c8e6c9; /* soft green hill */
+            border-radius: 50% 50% 0 0;
+            left: -20%;
+            z-index: 1;
+        }
+        .hill-2 {
+            height: 28%;
+            background: #a5d6a7; /* foreground hill */
+            left: -10%;
+            z-index: 2;
+        }
+
+        @keyframes floatCloud {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(100vw + 350px)); }
+        }
+
+        /* Railroad Track */
+        .track-container {
+            position: absolute;
+            bottom: 22%;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            z-index: 3;
+        }
+        .track-rail {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: #78909c;
+            border-top: 2px solid #b0bec5;
+        }
+        .track-ties {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: repeating-linear-gradient(90deg, #5d4037, #5d4037 15px, transparent 15px, transparent 45px);
+        }
+
+        /* Toy Train Container */
+        .train-assembly {
+            position: absolute;
+            bottom: 24%;
+            left: -350px; /* starts off-screen */
+            display: flex;
+            align-items: flex-end;
+            z-index: 4;
+            animation: trainPass 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes trainPass {
+            0% { left: -350px; }
+            100% { left: calc(100% + 50px); }
+        }
+
+        /* Locomotive Engine */
+        .train-engine {
+            width: 80px;
+            height: 65px;
+            background: var(--purple);
+            border-radius: 12px 25px 5px 5px;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            animation: chug-vibe 0.15s infinite alternate;
+        }
+
+        .cabin {
+            width: 40px;
+            height: 40px;
+            background: #4e1a66;
+            border-radius: 6px 15px 5px 5px;
+            position: absolute;
+            top: -28px;
+            right: 5px;
+            border: 3px solid var(--purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cabin-window {
+            width: 20px;
+            height: 20px;
+            background: var(--yellow);
+            border-radius: 4px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        }
+
+        .smokestack {
+            width: 14px;
+            height: 25px;
+            background: var(--yellow);
+            position: absolute;
+            top: -22px;
+            left: 14px;
+            border-radius: 4px 4px 0 0;
+            border: 2px solid var(--purple);
+        }
+        .smokestack::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -4px;
+            width: 22px;
+            height: 6px;
+            background: var(--purple);
+            border-radius: 3px;
+        }
+
+        /* Smoke Puffs */
+        .smoke-generator {
+            position: absolute;
+            top: -30px;
+            left: 18px;
+        }
+        .smoke-puff {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 50%;
+            opacity: 0;
+            animation: riseSmoke 1.2s infinite ease-out;
+        }
+        .smoke-puff:nth-child(2) { animation-delay: 0.4s; }
+        .smoke-puff:nth-child(3) { animation-delay: 0.8s; }
+
+        @keyframes riseSmoke {
+            0% { transform: translateY(0) scale(0.6); opacity: 0.9; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-45px) translateX(20px) scale(2.2); opacity: 0; }
+        }
+
+        /* Carriages */
+        .train-carriage {
+            width: 60px;
+            height: 44px;
+            margin-right: 10px;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            color: var(--white);
+            font-size: 24px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            border: 3px solid var(--purple);
+            animation: chug-vibe 0.15s infinite alternate;
+        }
+        .carriage-1 { background: var(--yellow); color: var(--purple); border-color: var(--yellow); }
+        .carriage-2 { background: #e040fb; color: var(--white); border-color: #e040fb; }
+
+        .coupling-link {
+            width: 12px;
+            height: 6px;
+            background: #455a64;
+            margin-right: -2px;
+            margin-bottom: 10px;
+        }
+
+        /* Train Wheels */
+        .train-wheel {
+            width: 20px;
+            height: 20px;
+            background: #263238;
+            border: 4px dashed var(--yellow);
+            border-radius: 50%;
+            position: absolute;
+            bottom: -10px;
+            animation: rollWheel 0.4s infinite linear;
+        }
+        .train-engine .wheel-1 { left: 10px; }
+        .train-engine .wheel-2 { right: 10px; }
+        .train-carriage .wheel-1 { left: 8px; }
+        .train-carriage .wheel-2 { right: 8px; }
+
+        @keyframes rollWheel {
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes chug-vibe {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-2px); }
+        }
+
+        /* Loading Bouncing Text */
+        .loading-text {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 24px;
+            color: var(--purple);
+            position: relative;
+            z-index: 5;
+            margin-top: -120px;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .loading-text span {
+            display: inline-block;
+            animation: bounceLetter 1.2s infinite ease-in-out;
+        }
+        .loading-text span:nth-child(2) { animation-delay: 0.1s; }
+        .loading-text span:nth-child(3) { animation-delay: 0.2s; }
+        .loading-text span:nth-child(4) { animation-delay: 0.3s; }
+        .loading-text span:nth-child(5) { animation-delay: 0.4s; }
+        .loading-text span:nth-child(6) { animation-delay: 0.5s; }
+
+        @keyframes bounceLetter {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); color: var(--yellow); }
+        }
+
+
+        /* ========== ADMISSION PAGE LAYOUT ========== */
+        .admission-container {
+            width: 100%;
+            max-width: 750px;
+            background: var(--white);
+            border-radius: 32px;
+            box-shadow: var(--shadow);
+            border: 8px solid var(--purple);
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+            display: none;
+        }
+        
+        .admission-container.show {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Decorative header */
+        .form-header {
+            background: var(--purple);
+            padding: 40px 30px;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            border-bottom: 6px dashed var(--yellow);
+        }
+        .form-header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            color: var(--yellow);
+        }
+        .form-header p {
+            font-size: 16px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        /* Floating decoration elements inside page */
+        .decoration-toy {
+            position: absolute;
+            font-size: 28px;
+            color: rgba(255, 193, 7, 0.3);
+            pointer-events: none;
+        }
+        .dec-star-1 { top: 15px; left: 20px; transform: rotate(-15deg); }
+        .dec-plane-1 { top: 15px; right: 25px; transform: rotate(15deg); }
+        .dec-teddy-1 { bottom: 15px; right: 30px; }
+
+        /* Form styling */
+        .admission-form {
+            padding: 40px 35px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--purple);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2.5px solid var(--lavender);
+            border-radius: 16px;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+            outline: none;
+            transition: var(--transition);
+            background: var(--light-bg);
+        }
+
+        .form-control:focus {
+            border-color: var(--yellow);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(255, 193, 7, 0.15);
+        }
+
+        /* Custom Gender select (Pills) */
+        .gender-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .gender-option {
+            position: relative;
+        }
+        .gender-option input {
+            position: absolute;
+            opacity: 0;
+            width: 0; height: 0;
+        }
+        .gender-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 13px;
+            border: 2.5px solid var(--lavender);
+            border-radius: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--light-bg);
+            text-align: center;
+            font-size: 14px;
+        }
+        .gender-option input:checked + .gender-label {
+            border-color: var(--purple);
+            background: var(--purple);
+            color: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        /* Action Buttons */
+        .form-actions {
+            grid-column: span 2;
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            max-width: 380px;
+            background: var(--yellow);
+            color: var(--purple);
+            padding: 18px 30px;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 18px;
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 8px 20px rgba(255, 193, 7, 0.35);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 193, 7, 0.45);
+        }
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .back-link {
+            color: var(--purple);
+            font-weight: 700;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        .back-link:hover {
+            color: var(--yellow);
+            transform: translateX(-2px);
+        }
+
+        /* Success Redirect Overlay */
+        .redirect-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--purple);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        .redirect-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .redirect-icon {
+            font-size: 70px;
+            color: var(--yellow);
+            margin-bottom: 25px;
+            animation: bounce 1.5s infinite;
+        }
+
+        .redirect-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 900;
+            color: var(--yellow);
+            margin-bottom: 15px;
+        }
+
+        .redirect-text {
+            font-size: 16px;
+            max-width: 450px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .redirect-loader {
+            width: 80px;
+            height: 12px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+        .redirect-bar {
+            position: absolute;
+            height: 100%;
+            width: 40%;
+            background: var(--yellow);
+            border-radius: 6px;
+            animation: loadingProgress 1.5s infinite ease-in-out;
+        }
+
+        @keyframes loadingProgress {
+            0% { left: -40%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Responsive adaptations */
+        @media (max-width: 650px) {
+            .admission-form {
+                grid-template-columns: 1fr;
+                padding: 30px 20px;
+                gap: 18px;
+            }
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            .gender-options {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            body {
+                padding: 20px 10px;
+            }
+            .form-header {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== ANIMATED LOADER SCREEN ========== -->
+    <div class="loader-wrapper" id="pageLoader">
+        <div class="loader-bg">
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="hill hill-2"></div>
+            <div class="hill"></div>
+        </div>
+        
+        <!-- Track assembly -->
+        <div class="track-container">
+            <div class="track-ties"></div>
+            <div class="track-rail"></div>
+        </div>
+        
+        <!-- Toy Train -->
+        <div class="train-assembly">
+            <!-- Carriage 2 (Trailing) -->
+            <div class="train-carriage carriage-2">
+                B
+                <div class="train-wheel wheel-1"></div>
+                <div class="train-wheel wheel-2"></div>
+            </div>
+            <div class="coupling-link"></div>
+            
+            <!-- Carriage 1 (Middle) -->
+            <div class="train-carriage carriage-1">
+                A
+                <div class="train-wheel wheel-1"></div>
+                <div class="train-wheel wheel-2"></div>
+            </div>
+            <div class="coupling-link"></div>
+            
+            <!-- Engine Locomotive (Front) -->
+            <div class="train-engine">
+                <div class="cabin">
+                    <div class="cabin-window"></div>
+                </div>
+                <div class="smokestack"></div>
+                <div class="smoke-generator">
+                    <div class="smoke-puff"></div>
+                    <div class="smoke-puff"></div>
+                    <div class="smoke-puff"></div>
+                </div>
+                <div class="train-wheel wheel-1"></div>
+                <div class="train-wheel wheel-2"></div>
+            </div>
+        </div>
+        
+        <!-- Bouncing status text -->
+        <div class="loading-text">
+            <span>L</span><span>o</span><span>a</span><span>d</span><span>i</span><span>n</span><span>g</span>...
+        </div>
+    </div>
+
+    <!-- ========== ADMISSION FORM CONTAINER ========== -->
+    <div class="admission-container" id="formContainer">
+        <!-- Floating icons -->
+        <i class="fas fa-star decoration-toy dec-star-1"></i>
+        <i class="fas fa-paper-plane decoration-toy dec-plane-1"></i>
+        <i class="fas fa-teddy-bear decoration-toy dec-teddy-1"></i>
+        
+        <div class="form-header">
+            <h1>TeddyKidz Admission</h1>
+            <p>Begin your child's journey of discovery and learning 🧸</p>
+        </div>
+
+        <form class="admission-form" id="admissionForm" onsubmit="handleFormSubmit(event)">
+            <!-- Child Name -->
+            <div class="form-group">
+                <label for="childName"><i class="fas fa-child"></i> Child's Full Name *</label>
+                <input type="text" id="childName" class="form-control" placeholder="Enter child's name" required>
+            </div>
+
+            <!-- Date of Birth -->
+            <div class="form-group">
+                <label for="dob"><i class="fas fa-calendar-alt"></i> Date of Birth *</label>
+                <input type="date" id="dob" class="form-control" required>
+            </div>
+
+            <!-- Gender -->
+            <div class="form-group">
+                <label><i class="fas fa-venus-mars"></i> Gender *</label>
+                <div class="gender-options">
+                    <div class="gender-option">
+                        <input type="radio" id="genderBoy" name="gender" value="Boy" required>
+                        <label for="genderBoy" class="gender-label">👦 Boy</label>
+                    </div>
+                    <div class="gender-option">
+                        <input type="radio" id="genderGirl" name="gender" value="Girl">
+                        <label for="genderGirl" class="gender-label">👧 Girl</label>
+                    </div>
+                    <div class="gender-option">
+                        <input type="radio" id="genderOther" name="gender" value="Other">
+                        <label for="genderOther" class="gender-label">🧸 Other</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Programme Dropdown -->
+            <div class="form-group">
+                <label for="programme"><i class="fas fa-graduation-cap"></i> Select Programme *</label>
+                <select id="programme" class="form-control" required>
+                    <option value="" disabled selected>Choose a programme</option>
+                    <option value="PlayGroup">PlayGroup (2 - 3 Years)</option>
+                    <option value="Nursery">Nursery (3 - 4 Years)</option>
+                    <option value="Kindergarten">Junior KG / Senior KG (4 - 6 Years)</option>
+                    <option value="Extended Daycare">Extended Daycare (2 - 6 Years)</option>
+                </select>
+            </div>
+
+            <!-- Parent Name -->
+            <div class="form-group">
+                <label for="parentName"><i class="fas fa-user-friends"></i> Parent / Guardian Name *</label>
+                <input type="text" id="parentName" class="form-control" placeholder="Enter parent's name" required>
+            </div>
+
+            <!-- Contact Number -->
+            <div class="form-group">
+                <label for="phone"><i class="fab fa-whatsapp"></i> WhatsApp Contact Number *</label>
+                <input type="tel" id="phone" class="form-control" placeholder="e.g. 10 digit number" pattern="[0-9]{10}" required title="Please enter a valid 10-digit mobile number">
+            </div>
+
+            <!-- Location -->
+            <div class="form-group full-width">
+                <label for="location"><i class="fas fa-map-marker-alt"></i> City / Location *</label>
+                <input type="text" id="location" class="form-control" placeholder="Enter your city/town" required>
+            </div>
+
+            <!-- Messages/Queries -->
+            <div class="form-group full-width">
+                <label for="message"><i class="fas fa-comment-dots"></i> Message / Special Queries</label>
+                <textarea id="message" class="form-control" rows="3" placeholder="Any additional information or questions you have..."></textarea>
+            </div>
+
+            <!-- Submit & Action Grid -->
+            <div class="form-actions">
+                <button type="submit" class="submit-btn">
+                    Submit via WhatsApp <i class="fab fa-whatsapp"></i>
+                </button>
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Homepage
+                </a>
+            </div>
+        </form>
+
+        <!-- Redirect Overlay -->
+        <div class="redirect-overlay" id="redirectOverlay">
+            <i class="fab fa-whatsapp redirect-icon"></i>
+            <div class="redirect-title">Details Submitted!</div>
+            <div class="redirect-text">
+                We are opening WhatsApp to share your admission request details with the TeddyKidz administration. Please press send on the message template.
+            </div>
+            <div class="redirect-loader">
+                <div class="redirect-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== JAVASCRIPT LOGIC ========== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. URL Query Parameter pre-selection
+            const urlParams = new URLSearchParams(window.location.search);
+            const progParam = urlParams.get('prog');
+            const selectElement = document.getElementById('programme');
+
+            if (progParam && selectElement) {
+                const paramValueLower = progParam.toLowerCase();
+                
+                // Map the short parameter code to select options
+                if (paramValueLower.includes('playgroup')) {
+                    selectElement.value = "PlayGroup";
+                } else if (paramValueLower.includes('nursery')) {
+                    selectElement.value = "Nursery";
+                } else if (paramValueLower.includes('kindergarten') || paramValueLower.includes('kg')) {
+                    selectElement.value = "Kindergarten";
+                } else if (paramValueLower.includes('daycare')) {
+                    selectElement.value = "Extended Daycare";
+                }
+            }
+
+            // 2. Control Loader Fadeout
+            const loader = document.getElementById('pageLoader');
+            const formContainer = document.getElementById('formContainer');
+
+            // Show loader for 2.6 seconds (the train crosses the screen in 3s)
+            // Fade out loader just as the train is exiting
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                formContainer.style.display = 'block';
+                
+                // Trigger form container show animation
+                setTimeout(() => {
+                    formContainer.classList.add('show');
+                    loader.style.display = 'none';
+                }, 100);
+            }, 2600);
+        });
+
+        // 3. Form Submission to WhatsApp
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const childName = document.getElementById('childName').value.trim();
+            const dob = document.getElementById('dob').value;
+            const gender = document.querySelector('input[name="gender"]:checked')?.value || 'Not specified';
+            const program = document.getElementById('programme').value;
+            const parentName = document.getElementById('parentName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const location = document.getElementById('location').value.trim();
+            const message = document.getElementById('message').value.trim() || 'No special queries.';
+
+            // Construct the beautifully structured WhatsApp Message
+            const formattedText = 
+`🧸 *TEDDYKIDZ ADMISSION INQUIRY* 🧸
+----------------------------------------
+👶 *Child's Name:* ${childName}
+📅 *Date of Birth:* ${dob}
+⚧ *Gender:* ${gender}
+🎒 *Programme:* ${program}
+👤 *Parent Name:* ${parentName}
+📞 *Contact No:* ${phone}
+📍 *Location:* ${location}
+💬 *Message:* ${message}
+----------------------------------------
+Please let us know the availability and next steps. Thank you!`;
+
+            // WhatsApp link encoding
+            const waPhone = "919626119811";
+            const encodedText = encodeURIComponent(formattedText);
+            const waUrl = `https://wa.me/${waPhone}?text=${encodedText}`;
+
+            // Show Redirect Screen
+            const redirectOverlay = document.getElementById('redirectOverlay');
+            redirectOverlay.classList.add('active');
+
+            // Open WhatsApp after a small delay
+            setTimeout(() => {
+                window.location.href = waUrl;
+            }, 1800);
+        }
+    </script>
+</body>
+</html>
