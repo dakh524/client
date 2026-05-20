@@ -1213,7 +1213,7 @@ ul { list-style:none; }
         font-weight: 700;
     }
     
-    .enroll-banner { 
+    .enroll-banner.mobile-only { 
         font-size: 1.15rem; 
         padding: 14px 38px; 
         border-radius: 50px; 
@@ -1229,7 +1229,7 @@ ul { list-style:none; }
         z-index: 12;
         position: relative;
     }
-    .enroll-banner:hover {
+    .enroll-banner.mobile-only:hover {
         transform: scale(1.05) !important;
     }
     
